@@ -14,7 +14,7 @@ The study and handwriting toolkit behind WittyEbook, WittyPDF and WittyComics. Y
 
 The Reader page, and the host it provides, stay with the server.
 
-How to use it is in **Help** inside WittyMediaServer: see the books guide.
+How to use it is in **Help** inside WittyMediaServer: see Books, PDFs and comics.
 
 ## How to get it
 
