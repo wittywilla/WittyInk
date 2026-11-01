@@ -18,8 +18,7 @@
   <a href="wiki/Home.md"><b>Full guide</b></a>
 </p>
 
-> Read-only mirror of `web/src/modules/wittyink` in [WittyMediaServer](https://github.com/wittywilla/WittyMediaServer),
-> where development happens. Please open issues and pull requests there.
+> WittyInk is developed and released here. Issues and pull requests are welcome.
 
 WittyInk is what [WittyEbook](https://github.com/wittywilla/WittyEbook), [WittyPDF](https://github.com/wittywilla/WittyPDF)
 and [WittyComics](https://github.com/wittywilla/WittyComics) share. The readers run inside
