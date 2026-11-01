@@ -6,4 +6,5 @@ What changed in WittyInk, newest first. What changed before it had a repository 
 ## Unreleased
 
 - Module API 3 and WittyMediaServer 0.6.0-alpha: this is how a server gets it now, with no copy compiled in.
+- The host can tell a PDF reader where pdf.js's decoders are.
 - WittyInk is now a project of its own, developed and released from this repository.
