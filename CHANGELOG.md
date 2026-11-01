@@ -5,4 +5,5 @@ What changed in WittyInk, newest first. What changed before it had a repository 
 
 ## Unreleased
 
+- The host can tell a PDF reader where pdf.js's decoders are.
 - WittyInk is now a project of its own, developed and released from this repository.
