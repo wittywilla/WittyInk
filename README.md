@@ -2,6 +2,14 @@
 
 The study and handwriting toolkit behind WittyEbook, WittyPDF and WittyComics. You don't open it on its own: the readers use it, in WittyMediaServer and in the WittyReader app.
 
+<!-- pictures -->
+
+![A book open in the reader that WittyInk adds notes and highlights to](docs/images/reader-epub.webp)
+
+<sub>WittyEbook, which takes its study tools from here. Text and cover from [Standard Ebooks](https://standardebooks.org/), [CC0](https://creativecommons.org/publicdomain/zero/1.0/).</sub>
+
+<!-- /pictures -->
+
 ## What it does
 
 - **Highlights in any colour,** and you can name what each colour means. The names show in filters and exports.
