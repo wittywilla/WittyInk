@@ -14,7 +14,7 @@
   "scripts": {
     "build:bundle": "node build-bundle.mjs"
   },
-  "repository": "github:wittywilla/WittyInk",
+  "repository": "github:wittywilla/WittyInk#v0.2.0",
   "peerDependencies": {
     "react": ">=18"
   },
