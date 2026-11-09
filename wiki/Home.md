@@ -33,4 +33,4 @@ The readers run in two apps:
 - [Styling](Styling): the classes and colours the readers expect, and `kit.css`.
 
 Development happens in [WittyMediaServer](https://github.com/wittywilla/WittyMediaServer)
-(this repository). Licensed under Apache-2.0.
+(this repository). Licensed under AGPL-3.0-or-later.

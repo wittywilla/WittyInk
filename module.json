@@ -3,7 +3,7 @@
   "name": "WittyInk",
   "version": "0.2.0",
   "repo": "wittywilla/WittyInk",
-  "license": "Apache-2.0",
+  "license": "AGPL-3.0-or-later",
   "delivery": "web",
   "entry": "index.js",
   "style": "style.css",
