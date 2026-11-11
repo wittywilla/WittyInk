@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Copyright (C) 2026 WittyWilla and contributors */
 /* WittyInk: what every reader shares (the full-screen frame, top bar and
    footer, side panels, pop-ups and the ink toolbar). Relies only on the
    shared UI kit (buttons, inputs, colour variables). The chrome keeps its own

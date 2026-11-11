@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Copyright (C) 2026 WittyWilla and contributors */
 /* WittyInk UI kit: the colours and the few controls the Witty readers use
    (buttons, inputs, segmented choices, spinner). Apps that have their own
    design system define these instead; WittyMediaServer does. Import it with

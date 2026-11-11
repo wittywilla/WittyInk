@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 WittyWilla and contributors
 // The icons the readers use (inline SVG, so the module needs no icon set and
 // every system draws them the same, unlike emoji). Filled icons for the bars;
 // line icons for the handwriting tools.
