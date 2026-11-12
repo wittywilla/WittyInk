@@ -3,6 +3,7 @@
 For readers
 - [Highlights and notes](Highlights-and-notes)
 - [Handwriting](Handwriting)
+- [Library pages and the bookshelf](Library-pages)
 
 For developers
 - [Reader host](Reader-host)

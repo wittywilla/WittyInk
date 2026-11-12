@@ -25,6 +25,8 @@ The readers run in two apps:
   notes, bookmarks, citations, definitions and export.
 - [Handwriting](Handwriting): pens, pencils, highlighters, the eraser, pressure, palm rejection
   and shortcuts.
+- [Library pages and the bookshelf](Library-pages): what a server shows for a books library,
+  and the bookshelf's series, authors, sorting and finding.
 
 ## For developers
 
