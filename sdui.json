@@ -286,5 +286,20 @@
         }
       ]
     }
+  ],
+  "navigation": [
+    {
+      "id": "wittyink",
+      "type": "page",
+      "page": "wittyink-books",
+      "label": "Books",
+      "icon": "book",
+      "when": {
+        "hasLibrary": "books"
+      },
+      "placement": {
+        "phone": "more"
+      }
+    }
   ]
 }
