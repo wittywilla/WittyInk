@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build:bundle": "node build-bundle.mjs",
-    "test": "node --experimental-strip-types --test \"tests/*.test.mjs\""
+    "test": "node sdui/kit/write-sdui.mjs --check sdui.json && node --experimental-strip-types --test \"tests/*.test.mjs\""
   },
   "repository": "github:wittywilla/WittyInk#v0.2.0",
   "peerDependencies": {
