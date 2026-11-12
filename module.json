@@ -1,7 +1,7 @@
 {
   "id": "wittyink",
   "name": "WittyInk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repo": "wittywilla/WittyInk",
   "license": "AGPL-3.0-or-later",
   "delivery": "web",
@@ -9,7 +9,7 @@
   "style": "style.css",
   "api": 3,
   "minServer": "0.6.0-alpha",
-  "maxServer": "0.6.x",
+  "maxServer": "0.8.x",
   "group": "read",
   "summary": "What every reader shares: annotations, notes, definitions, citations and handwriting.",
   "updates": "What readers share: annotations, notes, definitions and handwriting.",
