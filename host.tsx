@@ -55,6 +55,14 @@ export interface ReaderHost {
   define?(word: string): Promise<Definition[]> // optional: needs a dictionary service
   toast(message: string): void
   close(): void
+  // Optional: tells the app something went wrong in the reader, for its log
+  // (WittyMediaServer files it in the server's log). The message is fixed
+  // text, such as "a chapter could not be loaded": never anything from the
+  // book, and never an address with a token in it. detail.stack is the
+  // error's own message with any query strings taken off its addresses;
+  // detail.page is the page or chapter it happened on. Readers call it as
+  // host.report?.(...), so a host without it still works.
+  report?(level: 'error' | 'warn', message: string, detail?: { stack?: string; page?: string }): void
 }
 
 export const HostContext = createContext<ReaderHost | null>(null)
