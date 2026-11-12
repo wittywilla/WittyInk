@@ -1,0 +1,51 @@
+{
+  "format": "wittymodule-sdui",
+  "formatVersion": 1,
+  "module": "wittyink",
+  "catalog": 2,
+  "theme": { "scope": "wittyink", "label": "Books and readers" },
+  "views": [
+    {
+      "id": "wittyink.bookshelf",
+      "label": "Bookshelf",
+      "description": "Every book in a library, by title, series or author, sorted and narrowed to books, PDFs or comics, with how far you are. Drawn by WittyInk's web bundle; other apps show the grid inside it.",
+      "platforms": ["web", "desktop"]
+    }
+  ],
+  "pages": [
+    {
+      "id": "wittyink-library",
+      "kind": "library",
+      "title": "{library}",
+      "icon": "book",
+      "description": "A books library: what you were reading, then the bookshelf, with series and authors where the app can show them, and every cover elsewhere.",
+      "match": { "libraryKind": "books" },
+      "sections": [
+        { "id": "reading", "component": "Shelf", "props": { "title": "Continue reading", "cardStyle": "book", "seeAll": "never" }, "source": { "type": "continueWatching", "media": "read" } },
+        {
+          "id": "shelf",
+          "component": "NativeView",
+          "props": { "view": "wittyink.bookshelf", "library": "$library" },
+          "children": [
+            { "id": "all", "component": "Grid", "props": { "cardStyle": "book", "empty": "message", "emptyText": "No books yet. Put EPUB, PDF or CBZ files in this library's folders and scan it." }, "source": { "type": "recentlyAdded", "library": "$library" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wittyink-books",
+      "kind": "books",
+      "title": "Books",
+      "icon": "book",
+      "description": "Books, comics and audiobooks together: what you were reading, then what is new in each library.",
+      "sections": [
+        { "id": "reading", "component": "Shelf", "props": { "title": "Continue reading", "cardStyle": "book" }, "source": { "type": "continueWatching", "media": "read" } },
+        { "id": "recent", "component": "Shelf", "repeat": { "over": "libraries", "kinds": ["books", "audiobooks"] }, "props": { "title": "New in {each}", "cardStyle": "book", "seeAll": "always" }, "source": { "type": "recentlyAdded", "library": "$each" } }
+      ]
+    }
+  ],
+  "presets": [
+    { "id": "wittyink-reading", "label": "Continue reading", "description": "Books, PDFs and comics the profile is part-way through.", "section": { "id": "reading", "component": "Shelf", "props": { "title": "Continue reading", "cardStyle": "book" }, "source": { "type": "continueWatching", "media": "read" } } },
+    { "id": "wittyink-new", "label": "New books in each library", "description": "A row for each books library, newest first.", "section": { "id": "new-books", "component": "Shelf", "repeat": { "over": "libraries", "kinds": ["books"] }, "props": { "title": "New in {each}", "cardStyle": "book", "seeAll": "always" }, "source": { "type": "recentlyAdded", "library": "$each" } } }
+  ]
+}
