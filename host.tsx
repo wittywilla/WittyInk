@@ -63,6 +63,14 @@ export interface ReaderHost {
   // detail.page is the page or chapter it happened on. Readers call it as
   // host.report?.(...), so a host without it still works.
   report?(level: 'error' | 'warn', message: string, detail?: { stack?: string; page?: string }): void
+  // Optional: the profile's own settings of a module (its sdui.json "settings", which every
+  // app draws in Settings, under Modules), so a reader's choices follow the profile to every
+  // device. get answers what is saved, defaults included; save keeps changes made in the
+  // reader itself. A host without it (WittyReader) keeps choices on the device.
+  settings?: {
+    get(module: string): Record<string, unknown>
+    save(module: string, values: Record<string, unknown>): void
+  }
 }
 
 export const HostContext = createContext<ReaderHost | null>(null)

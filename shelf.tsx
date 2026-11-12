@@ -11,7 +11,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { IconBack, IconBook, IconSearch } from './icons'
 import './shelf.css'
-import { FORMATS, NONE, percentRead, shelfBooks, shelfGroups, SORTS, type ShelfBook, type ShelfSort, type ShelfState } from './shelfsort'
+import { FORMATS, NONE, STATUSES, percentRead, shelfBooks, shelfGroups, SORTS, type ShelfBook, type ShelfSort, type ShelfState, type ShelfStatus } from './shelfsort'
 
 export * from './shelfsort'
 
@@ -43,7 +43,7 @@ function open(path: string) {
 
 const SAVED = 'wittyink.shelf.'
 function savedState(library: string): ShelfState {
-  const fallback: ShelfState = { tab: 'books', sort: 'title', desc: false, format: 'all', q: '', group: null }
+  const fallback: ShelfState = { tab: 'books', sort: 'title', desc: false, format: 'all', status: 'all', q: '', group: null }
   try {
     const v = JSON.parse(sessionStorage.getItem(SAVED + library) || 'null')
     if (!v || typeof v !== 'object') return fallback
@@ -52,6 +52,7 @@ function savedState(library: string): ShelfState {
       sort: SORTS.some((s) => s.id === v.sort) ? v.sort : 'title',
       desc: v.desc === true,
       format: FORMATS.some((f) => f.id === v.format) ? v.format : 'all',
+      status: STATUSES.some((f) => f.id === v.status) ? v.status : 'all',
       q: '', group: typeof v.group === 'string' ? v.group : null,
     }
   } catch { return fallback }
@@ -112,9 +113,12 @@ export function Bookshelf({ host, library }: { host: PageHost; library?: string 
             ))}
           </div>
         )}
+        <div className="ink-shelf-chips" role="group" aria-label="Reading">
+          {STATUSES.map((f) => <button key={f.id} aria-pressed={(s.status || 'all') === f.id} className={(s.status || 'all') === f.id ? 'on' : ''} onClick={() => set({ status: f.id as ShelfStatus })}>{f.label}</button>)}
+        </div>
         {formats.length > 2 && (
           <div className="ink-shelf-chips" role="group" aria-label="Kind">
-            {formats.map((f) => <button key={f.id} aria-pressed={s.format === f.id} className={s.format === f.id ? 'on' : ''} onClick={() => set({ format: f.id })}>{f.label}</button>)}
+            {formats.filter((f) => f.id !== 'all').map((f) => <button key={f.id} aria-pressed={s.format === f.id} className={s.format === f.id ? 'on' : ''} onClick={() => set({ format: s.format === f.id ? 'all' : f.id })}>{f.label}</button>)}
           </div>
         )}
         <label className="ink-shelf-search">

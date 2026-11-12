@@ -2,14 +2,20 @@
   "format": "wittymodule-sdui",
   "formatVersion": 1,
   "module": "wittyink",
-  "catalog": 2,
-  "theme": { "scope": "wittyink", "label": "Books and readers" },
+  "catalog": 7,
+  "theme": {
+    "scope": "wittyink",
+    "label": "Books and readers"
+  },
   "views": [
     {
       "id": "wittyink.bookshelf",
       "label": "Bookshelf",
       "description": "Every book in a library, by title, series or author, sorted and narrowed to books, PDFs or comics, with how far you are. Drawn by WittyInk's web bundle; other apps show the grid inside it.",
-      "platforms": ["web", "desktop"]
+      "platforms": [
+        "web",
+        "desktop"
+      ]
     }
   ],
   "pages": [
@@ -19,15 +25,44 @@
       "title": "{library}",
       "icon": "book",
       "description": "A books library: what you were reading, then the bookshelf, with series and authors where the app can show them, and every cover elsewhere.",
-      "match": { "libraryKind": "books" },
+      "match": {
+        "libraryKind": "books"
+      },
       "sections": [
-        { "id": "reading", "component": "Shelf", "props": { "title": "Continue reading", "cardStyle": "book", "seeAll": "never" }, "source": { "type": "continueWatching", "media": "read" } },
+        {
+          "id": "reading",
+          "component": "Shelf",
+          "props": {
+            "title": "Continue reading",
+            "cardStyle": "book",
+            "seeAll": "never"
+          },
+          "source": {
+            "type": "continueWatching",
+            "media": "read"
+          }
+        },
         {
           "id": "shelf",
           "component": "NativeView",
-          "props": { "view": "wittyink.bookshelf", "library": "$library" },
+          "props": {
+            "view": "wittyink.bookshelf",
+            "library": "$library"
+          },
           "children": [
-            { "id": "all", "component": "Grid", "props": { "cardStyle": "book", "empty": "message", "emptyText": "No books yet. Put EPUB, PDF or CBZ files in this library's folders and scan it." }, "source": { "type": "recentlyAdded", "library": "$library" } }
+            {
+              "id": "all",
+              "component": "Grid",
+              "props": {
+                "cardStyle": "book",
+                "empty": "message",
+                "emptyText": "No books yet. Put EPUB, PDF or CBZ files in this library's folders and scan it."
+              },
+              "source": {
+                "type": "recentlyAdded",
+                "library": "$library"
+              }
+            }
           ]
         }
       ]
@@ -39,13 +74,217 @@
       "icon": "book",
       "description": "Books, comics and audiobooks together: what you were reading, then what is new in each library.",
       "sections": [
-        { "id": "reading", "component": "Shelf", "props": { "title": "Continue reading", "cardStyle": "book" }, "source": { "type": "continueWatching", "media": "read" } },
-        { "id": "recent", "component": "Shelf", "repeat": { "over": "libraries", "kinds": ["books", "audiobooks"] }, "props": { "title": "New in {each}", "cardStyle": "book", "seeAll": "always" }, "source": { "type": "recentlyAdded", "library": "$each" } }
+        {
+          "id": "reading",
+          "component": "Shelf",
+          "props": {
+            "title": "Continue reading",
+            "cardStyle": "book"
+          },
+          "source": {
+            "type": "continueWatching",
+            "media": "read"
+          }
+        },
+        {
+          "id": "recent",
+          "component": "Shelf",
+          "repeat": {
+            "over": "libraries",
+            "kinds": [
+              "books",
+              "audiobooks"
+            ]
+          },
+          "props": {
+            "title": "New in {each}",
+            "cardStyle": "book",
+            "seeAll": "always"
+          },
+          "source": {
+            "type": "recentlyAdded",
+            "library": "$each"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wittyink-book",
+      "kind": "detail",
+      "title": "{title}",
+      "icon": "book",
+      "description": "A book, PDF or comic: its cover, details and Read, Continue reading or Read again, then more like it.",
+      "match": {
+        "mediaKind": "book"
+      },
+      "sections": [
+        {
+          "id": "header",
+          "component": "DetailHeader",
+          "props": {
+            "layout": "poster",
+            "facts": [
+              "year",
+              "genres"
+            ],
+            "actions": [
+              "play",
+              "restart",
+              "download",
+              "share"
+            ]
+          }
+        },
+        {
+          "id": "refused",
+          "component": "Text",
+          "props": {
+            "role": "caption",
+            "text": "Copy-protected, password-protected or very large books are refused here, with a reason."
+          }
+        },
+        {
+          "id": "similar",
+          "component": "Shelf",
+          "props": {
+            "title": "More like this",
+            "cardStyle": "book"
+          },
+          "source": {
+            "type": "similar",
+            "item": "$item",
+            "limit": 12
+          }
+        }
       ]
     }
   ],
   "presets": [
-    { "id": "wittyink-reading", "label": "Continue reading", "description": "Books, PDFs and comics the profile is part-way through.", "section": { "id": "reading", "component": "Shelf", "props": { "title": "Continue reading", "cardStyle": "book" }, "source": { "type": "continueWatching", "media": "read" } } },
-    { "id": "wittyink-new", "label": "New books in each library", "description": "A row for each books library, newest first.", "section": { "id": "new-books", "component": "Shelf", "repeat": { "over": "libraries", "kinds": ["books"] }, "props": { "title": "New in {each}", "cardStyle": "book", "seeAll": "always" }, "source": { "type": "recentlyAdded", "library": "$each" } } }
+    {
+      "id": "wittyink-reading",
+      "label": "Continue reading",
+      "description": "Books, PDFs and comics the profile is part-way through.",
+      "section": {
+        "id": "reading",
+        "component": "Shelf",
+        "props": {
+          "title": "Continue reading",
+          "cardStyle": "book"
+        },
+        "source": {
+          "type": "continueWatching",
+          "media": "read"
+        }
+      }
+    },
+    {
+      "id": "wittyink-new",
+      "label": "New books in each library",
+      "description": "A row for each books library, newest first.",
+      "section": {
+        "id": "new-books",
+        "component": "Shelf",
+        "repeat": {
+          "over": "libraries",
+          "kinds": [
+            "books"
+          ]
+        },
+        "props": {
+          "title": "New in {each}",
+          "cardStyle": "book",
+          "seeAll": "always"
+        },
+        "source": {
+          "type": "recentlyAdded",
+          "library": "$each"
+        }
+      }
+    }
+  ],
+  "settings": [
+    {
+      "id": "wittyink",
+      "title": "Reading",
+      "icon": "book",
+      "groups": [
+        {
+          "title": "Handwriting",
+          "footer": "For books and PDFs. The pen's colours and sizes are chosen in the reader.",
+          "rows": [
+            {
+              "key": "pressure",
+              "kind": "bool",
+              "scope": "profile",
+              "label": "Pen pressure",
+              "help": "Pressing harder draws a thicker line.",
+              "default": true
+            },
+            {
+              "key": "penOnly",
+              "kind": "bool",
+              "scope": "profile",
+              "label": "Only a pen draws",
+              "help": "Fingers turn pages and scroll; only a pen or stylus writes.",
+              "default": false
+            },
+            {
+              "key": "autoPen",
+              "kind": "bool",
+              "scope": "profile",
+              "label": "A pen writes straight away",
+              "help": "No need to choose the pen tool first.",
+              "default": true
+            },
+            {
+              "key": "snap",
+              "kind": "bool",
+              "scope": "profile",
+              "label": "Highlighter over text highlights it",
+              "help": "A highlighter stroke across words becomes a text highlight.",
+              "default": true
+            }
+          ]
+        },
+        {
+          "title": "What each highlight colour means",
+          "footer": "Shown in the notes list and in exports, in every book.",
+          "rows": [
+            {
+              "key": "meaningYellow",
+              "kind": "string",
+              "scope": "profile",
+              "label": "Yellow",
+              "help": "Such as Important",
+              "maxLength": 40
+            },
+            {
+              "key": "meaningGreen",
+              "kind": "string",
+              "scope": "profile",
+              "label": "Green",
+              "help": "Such as Definition",
+              "maxLength": 40
+            },
+            {
+              "key": "meaningBlue",
+              "kind": "string",
+              "scope": "profile",
+              "label": "Blue",
+              "help": "Such as Question",
+              "maxLength": 40
+            },
+            {
+              "key": "meaningPink",
+              "kind": "string",
+              "scope": "profile",
+              "label": "Pink",
+              "help": "Such as Quote",
+              "maxLength": 40
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

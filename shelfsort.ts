@@ -16,7 +16,9 @@ export interface ShelfBook {
 export type ShelfTab = 'books' | 'series' | 'authors'
 export type ShelfSort = 'title' | 'added' | 'year' | 'author'
 export type ShelfFormat = 'all' | 'epub' | 'pdf' | 'cbz'
-export interface ShelfState { tab: ShelfTab; sort: ShelfSort; desc: boolean; format: ShelfFormat; q: string; group: string | null }
+export type ShelfStatus = 'all' | 'reading' | 'finished'
+export interface ShelfState { tab: ShelfTab; sort: ShelfSort; desc: boolean; format: ShelfFormat; status?: ShelfStatus; q: string; group: string | null }
+export const STATUSES: { id: ShelfStatus; label: string }[] = [{ id: 'all', label: 'All' }, { id: 'reading', label: 'Reading' }, { id: 'finished', label: 'Finished' }]
 
 export const FORMATS: { id: ShelfFormat; label: string }[] = [{ id: 'all', label: 'All' }, { id: 'epub', label: 'Books' }, { id: 'pdf', label: 'PDFs' }, { id: 'cbz', label: 'Comics' }]
 export const SORTS: { id: ShelfSort; label: string }[] = [{ id: 'title', label: 'Title' }, { id: 'author', label: 'Author' }, { id: 'added', label: 'Recently added' }, { id: 'year', label: 'Year' }]
@@ -36,9 +38,11 @@ export function percentRead(b: ShelfBook): number {
 const key = (b: ShelfBook) => (b.sortTitle || b.title || '').trim()
 
 /** The books a choice shows, in its order. Pure, so it is tested on its own. */
-export function shelfBooks(all: ShelfBook[], s: Pick<ShelfState, 'sort' | 'desc' | 'format' | 'q' | 'tab' | 'group'>): ShelfBook[] {
+export function shelfBooks(all: ShelfBook[], s: Pick<ShelfState, 'sort' | 'desc' | 'format' | 'status' | 'q' | 'tab' | 'group'>): ShelfBook[] {
   const q = s.q.trim().toLocaleLowerCase()
+  const status = s.status || 'all'
   let out = all.filter((b) => (s.format === 'all' || (b.reader || b.container) === s.format)
+    && (status === 'all' || (status === 'finished' ? percentRead(b) >= 100 : percentRead(b) > 0 && percentRead(b) < 100))
     && (!q || [b.title, b.artist, b.album].some((v) => v && v.toLocaleLowerCase().includes(q))))
   if (s.group !== null) {
     // Inside a series, in its own order; inside an author, by series then title.

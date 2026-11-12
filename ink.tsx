@@ -16,6 +16,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import { laterSaver } from './settings'
+import type { ReaderHost } from './host'
 import { memo, useState, type ReactNode } from 'react'
 import { IconEraser, IconMarker, IconMore, IconPen, IconPencil, IconRedo, IconUndo } from './icons'
 
@@ -59,14 +61,34 @@ export const INK_DEF: InkPrefs = {
   opacity: { pen: 1, pencil: 0.85, marker: 0.4 }, pressure: true, penOnly: false, autoPen: true, snap: true, recent: [],
 }
 const KEY = 'wms.ink'
-export function loadInk(): InkPrefs {
+// The settings WittyInk describes (sdui.json): the pen's behaviour, the profile's own.
+const INK_SETTINGS = ['pressure', 'penOnly', 'autoPen', 'snap'] as const
+function inkFromSettings(v: Record<string, unknown> | undefined): Partial<InkPrefs> {
+  const out: Partial<InkPrefs> = {}
+  for (const k of INK_SETTINGS) if (v && typeof v[k] === 'boolean') out[k] = v[k] as boolean
+  return out
+}
+const inkSavers = new WeakMap<object, (values: Record<string, unknown>) => void>()
+function inkSaver(host?: Pick<ReaderHost, 'settings'>) {
+  if (!host?.settings) return null
+  let s = inkSavers.get(host)
+  if (!s) { const st = host.settings; s = laterSaver((v) => st.save('wittyink', v)); inkSavers.set(host, s) }
+  return s
+}
+// host: the reader's host, when it keeps the profile's settings; otherwise this device's only.
+export function loadInk(host?: Pick<ReaderHost, 'settings'>): InkPrefs {
+  let p = INK_DEF
   try {
     const v = JSON.parse(localStorage.getItem(KEY) || '{}')
     if (v.tool === 'eraser') v.tool = 'pen' // a new session starts with something that writes
-    return { ...INK_DEF, ...v, color: { ...INK_DEF.color, ...v.color }, size: { ...INK_DEF.size, ...v.size }, opacity: { ...INK_DEF.opacity, ...v.opacity } }
-  } catch { return INK_DEF }
+    p = { ...INK_DEF, ...v, color: { ...INK_DEF.color, ...v.color }, size: { ...INK_DEF.size, ...v.size }, opacity: { ...INK_DEF.opacity, ...v.opacity } }
+  } catch { /* the defaults */ }
+  return { ...p, ...inkFromSettings(host?.settings?.get('wittyink')) }
 }
-export function saveInk(p: InkPrefs) { try { localStorage.setItem(KEY, JSON.stringify(p)) } catch { /* ignore */ } }
+export function saveInk(p: InkPrefs, host?: Pick<ReaderHost, 'settings'>) {
+  try { localStorage.setItem(KEY, JSON.stringify(p)) } catch { /* ignore */ }
+  inkSaver(host)?.({ pressure: p.pressure, penOnly: p.penOnly, autoPen: p.autoPen, snap: p.snap })
+}
 
 // Width multiplier for a pressure reading. Mice and fingers report 0.5 while
 // pressed, which gives exactly the chosen thickness.

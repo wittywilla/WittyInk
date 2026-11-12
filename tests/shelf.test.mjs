@@ -60,3 +60,9 @@ test('how far through a book is', () => {
   assert.equal(percentRead(books[0]), 0)
   assert.equal(percentRead({ id: 9, title: 'x', runtimeSec: 10, progress: { positionSec: 25 } }), 100)
 })
+
+test('reading and finished narrow by how far through each book is', () => {
+  assert.deepEqual(ids(shelfBooks(books, { ...base, status: 'reading' })), [3])
+  assert.deepEqual(ids(shelfBooks(books, { ...base, status: 'finished' })), [4])
+  assert.deepEqual(ids(shelfBooks(books, { ...base, status: 'finished', format: 'epub' })), [])
+})

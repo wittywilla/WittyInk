@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Copyright (C) 2026 WittyWilla and contributors
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
-import { useHost, type Ann, type BookMeta } from './host'
+import { useContext, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { HostContext, useHost, type Ann, type BookMeta } from './host'
+import { laterSaver } from './settings'
 import { IconClose } from './icons'
 import { MARKER_COLORS } from './ink'
 
@@ -72,17 +73,27 @@ const LABELS_KEY = 'wms.reader.labels'
 // What each highlight colour means to the reader ("Definition", "Question"…),
 // the same in every book.
 export function useColorLabels() {
+  const host = useContext(HostContext)
   const [labels, setLabels] = useState<Record<string, string>>(() => {
+    let kept: Record<string, string> = {}
     try {
       const v = JSON.parse(localStorage.getItem(LABELS_KEY) || 'null')
-      if (v) return v
-      return JSON.parse(localStorage.getItem('wms.ereader') || '{}').labels || {} // from the first e-reader release
-    } catch { return {} }
+      kept = v || JSON.parse(localStorage.getItem('wms.ereader') || '{}').labels || {} // from the first e-reader release
+    } catch { /* none */ }
+    // The four named colours' meanings are also the profile's settings (WittyInk's sdui.json).
+    const fromProfile = host?.settings?.get('wittyink') || {}
+    for (const c of QUICK) {
+      const v = fromProfile['meaning' + c[0].toUpperCase() + c.slice(1)]
+      if (typeof v === 'string') { if (v.trim()) kept[c] = v.trim().slice(0, 40); else delete kept[c] }
+    }
+    return kept
   })
+  const save = useMemo(() => laterSaver(host?.settings ? (v) => host.settings!.save('wittyink', v) : undefined), [host])
   const set = (color: string, label: string) => setLabels((cur) => {
     const n = { ...cur, [color]: label }
     if (!label) delete n[color]
     try { localStorage.setItem(LABELS_KEY, JSON.stringify(n)) } catch { /* ignore */ }
+    if (QUICK.includes(color)) save({ ['meaning' + color[0].toUpperCase() + color.slice(1)]: label.slice(0, 40) })
     return n
   })
   return [labels, set] as const
