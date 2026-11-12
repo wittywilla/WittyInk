@@ -64,6 +64,21 @@ To use it in another app, wrap a reader in `HostContext.Provider` with a `Reader
 
 GNU Affero General Public License v3.0 (or later): see [LICENSE](LICENSE) and [NOTICE](NOTICE). If you redistribute it or build on it, please keep the NOTICE attribution.
 
+
+## In every app: its server-driven UI
+
+It carries the pages a server shows for books, in its own `sdui.json`, made of the server's catalogue so every app draws them in every look:
+
+- **A books library** (`wittyink-library`): Continue reading, then the bookshelf. The web and desktop apps draw the bookshelf (`wittyink.bookshelf`): Books, Series and Authors, sorting, All, Reading or Finished, books, PDFs or comics, and find. Televisions and phones get every cover in a grid.
+- **Books** (`wittyink-books`): Continue reading, then what's new in each books and audiobooks library.
+- **A book's page** (`wittyink-book`): Read, Continue reading or Read again, Download, Share, and more like it.
+- **Settings, Reading** (each profile's own): handwriting, and what each highlight colour means.
+- Two rows for the page editor's gallery: Continue reading, and new books in each library.
+
+**Stays in WittyInk's own code:** the reading tools themselves (highlights, notes and their export, handwriting, definitions) inside the readers, and the bookshelf on the web.
+
+The file is checked with `wittymodule check` and described in WittyMediaServer's [docs/SDUI-MODULES.md](https://github.com/wittywilla/WittyMediaServer/blob/master/docs/SDUI-MODULES.md).
+
 ## Legal
 
 WittyInk is an independent open-source project. It isn't associated with, sponsored by or endorsed
