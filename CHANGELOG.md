@@ -3,8 +3,12 @@
 What changed in WittyInk, newest first. What changed before it had a repository of its own is in the
 [WittyMediaServer changelog](https://github.com/wittywilla/WittyMediaServer/blob/master/CHANGELOG.md).
 
-## Unreleased
+## 0.4.1
 
+- The first release on module API 5. The tag v0.4.0 was made before these build changes and was never published.
+
+
+- Built on WittyModule 0.5.4 and module API 5: its workflows and SDUI kit are WittyModule 0.5.4's.
 - **WittyInk 0.4.0: module API 5.** It carries `integration.json` (no hooks of its own: it is the kit the readers share, which the app loads before any reader that claims a format with the readers hook). Its exports, the bookshelf view and its pages are unchanged.
 - Built with WittyModule's one builder (`kit/web/build-bundle.mjs`, Vite 8); this repository's own copy of the builder is gone.
 - **Settings in every app's Settings, under Modules** (`sdui.json`, each profile's own): handwriting (pen pressure, only a pen draws, a pen writes straight away, highlighter over text) and what each highlight colour means. `ReaderHost.settings` (optional) gives a reader the profile's settings of any module and saves changes made in the reader; `settingEnum`, `settingInt`, `settingBool` and `laterSaver` help read and save them.
