@@ -50,13 +50,13 @@ npm install
 npm run build:bundle
 ```
 
-That makes one script and one stylesheet, as a server installs them. To check the manifest:
+That makes one script and one stylesheet, as a server installs them, with WittyModule's builder (`kit/web/build-bundle.mjs` in a WittyModule checkout beside this one, or wherever `WITTYMODULE` names). To check the manifest:
 
 ```bash
 go run github.com/wittywilla/wittymodule/cmd/wittymodule check .
 ```
 
-It has no tests of its own yet. CI checks the manifest and builds the bundle.
+`npm test` checks `sdui.json` and the bookshelf's sorting. CI checks the manifest and builds the bundle.
 
 To use it in another app, wrap a reader in `HostContext.Provider` with a `ReaderHost`. The guide for developers is in [wiki/](wiki/Home.md): [Reader host](wiki/Reader-host.md), [Building blocks](wiki/Building-blocks.md) and [Styling](wiki/Styling.md).
 

@@ -5,6 +5,8 @@ What changed in WittyInk, newest first. What changed before it had a repository 
 
 ## Unreleased
 
+- **WittyInk 0.4.0: module API 5.** It carries `integration.json` (no hooks of its own: it is the kit the readers share, which the app loads before any reader that claims a format with the readers hook). Its exports, the bookshelf view and its pages are unchanged.
+- Built with WittyModule's one builder (`kit/web/build-bundle.mjs`, Vite 8); this repository's own copy of the builder is gone.
 - **Settings in every app's Settings, under Modules** (`sdui.json`, each profile's own): handwriting (pen pressure, only a pen draws, a pen writes straight away, highlighter over text) and what each highlight colour means. `ReaderHost.settings` (optional) gives a reader the profile's settings of any module and saves changes made in the reader; `settingEnum`, `settingInt`, `settingBool` and `laterSaver` help read and save them.
 - **A book's own page** (`wittyink-book`, for every book, PDF and comic): its cover and details, Read, Continue reading or Read again, Download and Share, and more like it.
 - The bookshelf filters by **Reading** and **Finished**, as well as by kind.

@@ -1,0 +1,8 @@
+{
+  "format": "wittymodule-integration",
+  "formatVersion": 1,
+  "module": "wittyink",
+  "host": {
+    "web": ">=5"
+  }
+}
