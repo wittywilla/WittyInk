@@ -29,11 +29,13 @@ pdf.js is large), WittyComics for `cbz`.
 | `saveProgress(position, total)` | function | Called as the reader moves. Readers already throttle it, so saving each call is fine. |
 | `annotations` | object | Your storage for notes (see *Annotations*). |
 | `epub` | object | EPUB books: see [WittyEbook](https://github.com/wittywilla/WittyEbook/wiki/Embedding). |
-| `pdf` | `{ url?, data? }` | PDFs: what pdf.js opens, an address or the file's bytes. |
+| `pdf` | `{ url?, data?, wasmUrl?, iccUrl? }` | PDFs: what pdf.js opens, an address or the file's bytes, and optionally where pdf.js's decoders are. |
 | `comic` | `{ pages, pageUrl(n) }` | Comics: page count and each page's image address. |
 | `define(word)` | function, optional | Returns dictionary entries. Leave it out and the **Define** button is hidden. |
 | `toast(message)` | function | Shows a short message ("Bookmarked", errors). |
 | `close()` | function | Leaves the reader (the back arrow and **Esc**). |
+| `report(level, message, detail?)` | function, optional | Tells the app something went wrong in the reader, for its log (WittyMediaServer files it in the server log). `message` is fixed text, never anything from the book or an address with a token. |
+| `settings` | `{ get(module), save(module, values) }`, optional | The profile's own settings of a module, so a reader's choices follow the profile to every device. Leave it out (as WittyReader does) and choices stay on the device. |
 
 ## Positions
 
