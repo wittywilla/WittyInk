@@ -1,6 +1,8 @@
 # WittyInk
 
-The study and handwriting toolkit behind WittyEbook, WittyPDF and WittyComics. You don't open it on its own: the readers use it, in WittyMediaServer and in the WittyReader app.
+The study and handwriting toolkit behind WittyEbook, WittyPDF and WittyComics. You don't open it on its own: the readers use it, in [WittyMediaServer](https://github.com/wittywilla/WittyMediaServer) and in the [WittyReader](https://github.com/wittywilla/WittyReader) app.
+
+It's a module of WittyMediaServer ([wittymediaserver.com](https://wittymediaserver.com)), on module API 5, and also a library the readers import.
 
 <!-- pictures -->
 
@@ -26,9 +28,9 @@ How to use it is in **Help** inside WittyMediaServer: see Books, PDFs and comics
 
 ## How to get it
 
-An admin adds it from the module store inside WittyMediaServer: **Settings → Modules**, then **Browse the store**, then **Add** beside WittyInk. That needs WittyMediaServer 0.6.0-alpha or later, and it works with nothing older. The range this version fits is in `module.json`: 0.6.0-alpha through 0.6.x.
+An admin adds it from the module store inside WittyMediaServer: **Settings → Modules**, then **Browse the store**, then **Add** beside WittyInk. The store brings it on its own when you add a reader.
 
-The store brings it when you add a reader.
+The range this version fits is in `module.json`: WittyMediaServer 0.8.0-alpha through 0.8.x, module API 5. The server takes API 5 modules only, so older servers can't use this version. How modules work on the server is in its [docs/MODULES.md](https://github.com/wittywilla/WittyMediaServer/blob/master/docs/MODULES.md).
 
 ## What it needs
 
@@ -40,7 +42,7 @@ It's one browser bundle for every system the server runs on, and it runs on whic
 
 ## Building and testing
 
-You need Node.js 22, as CI uses, and Go for the manifest check. In a worktree, first run the copy of `dev-modules.mjs` kept above the repositories (`node D:/projects/dev-modules.mjs` on the development machine). It writes only links that git ignores, so the checkout builds against the repositories beside it.
+You need Node.js 22, as CI uses, and Go for the manifest check. In a worktree, first run WittyMediaServer's `scripts/dev-modules.mjs` (or the copy its `--root` option keeps in the folder above the repositories). It writes only links that git ignores, so the checkout builds against the repositories beside it.
 
 ```bash
 npm install
@@ -60,11 +62,6 @@ go run github.com/wittywilla/wittymodule/cmd/wittymodule check .
 
 To use it in another app, wrap a reader in `HostContext.Provider` with a `ReaderHost`. The guide for developers is in [wiki/](wiki/Home.md): [Reader host](wiki/Reader-host.md), [Building blocks](wiki/Building-blocks.md) and [Styling](wiki/Styling.md).
 
-## Licence
-
-GNU Affero General Public License v3.0 (or later): see [LICENSE](LICENSE) and [NOTICE](NOTICE). If you redistribute it or build on it, please keep the NOTICE attribution.
-
-
 ## In every app: its server-driven UI
 
 It carries the pages a server shows for books, in its own `sdui.json`, made of the server's catalogue so every app draws them in every look:
@@ -78,6 +75,12 @@ It carries the pages a server shows for books, in its own `sdui.json`, made of t
 **Stays in WittyInk's own code:** the reading tools themselves (highlights, notes and their export, handwriting, definitions) inside the readers, and the bookshelf on the web.
 
 The file is checked with `wittymodule check` and described in WittyMediaServer's [docs/SDUI-MODULES.md](https://github.com/wittywilla/WittyMediaServer/blob/master/docs/SDUI-MODULES.md).
+
+## Licence
+
+GNU Affero General Public License v3.0 (or later): see [LICENSE](LICENSE) and [NOTICE](NOTICE). If you redistribute it or build on it, please keep the NOTICE attribution.
+
+WittyInk is part of the WittyMediaServer project: [server repository](https://github.com/wittywilla/WittyMediaServer), [wittymediaserver.com](https://wittymediaserver.com).
 
 ## Legal
 

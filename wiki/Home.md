@@ -34,5 +34,6 @@ The readers run in two apps:
 - [Building blocks](Building-blocks): the components and functions you can reuse.
 - [Styling](Styling): the classes and colours the readers expect, and `kit.css`.
 
-Development happens in [WittyMediaServer](https://github.com/wittywilla/WittyMediaServer)
-(this repository). Licensed under AGPL-3.0-or-later.
+Development happens in [this repository](https://github.com/wittywilla/WittyInk). WittyInk is a
+module of [WittyMediaServer](https://github.com/wittywilla/WittyMediaServer) 0.8.0-alpha through
+0.8.x (module API 5). Licensed under AGPL-3.0-or-later.
